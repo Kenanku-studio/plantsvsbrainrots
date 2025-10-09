@@ -1,0 +1,25 @@
+{
+  "name": "Plants vs Brainrots Stock Live",
+  "short_name": "PvBR Live",
+  "description": "LIVE Plants vs Brainrots Stock Tracker: Get real-time shop updates and seed & gear notifications! Check stock every 5 minutes.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a1a",
+  "theme_color": "#4ade80",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["games", "utilities", "productivity"],
+  "lang": "en",
+  "dir": "ltr"
+}
