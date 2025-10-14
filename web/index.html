@@ -3,47 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plants vs Brainrots</title>
+<title>Loading Error</title>
 <style>
-  /* Fullscreen loader container */
-  #loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+  /* Fullscreen error screen */
+  body, html {
+    margin: 0;
+    padding: 0;
     height: 100%;
-    background: #111; /* Background color */
+    background: #111;
     display: flex;
-    align-items: center;
     justify-content: center;
-    z-index: 9999;
-    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    color: white;
   }
 
-  /* Spinner animation */
-  .spinner {
-    border: 8px solid #f3f3f3; /* Light grey */
-    border-top: 8px solid #3498db; /* Blue */
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 1s linear infinite;
+  .error-container {
+    text-align: center;
+  }
+
+  .error-title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: red;
     margin-bottom: 20px;
   }
 
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  .error-message {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 20px;
   }
 
-  /* Fade-out effect */
-  #loader.fadeOut {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease;
-  }
-
-  /* RGB animated text */
   .rgb-text {
     font-size: 1.5rem;
     font-weight: bold;
@@ -52,7 +43,7 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: rainbow 5s linear infinite;
-    text-align: center;
+    margin-bottom: 20px;
   }
 
   @keyframes rainbow {
@@ -61,42 +52,30 @@
     100% { background-position: 0% 50%; }
   }
 
-  /* Main content hidden initially */
-  #content {
-    display: none;
-    padding: 50px;
-    text-align: center;
-    font-family: Arial, sans-serif;
+  .spinner {
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid red; /* Red for error */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 </style>
 </head>
 <body>
 
-<!-- Loader -->
-<div id="loader">
+<div class="error-container">
   <div class="spinner"></div>
   <div class="rgb-text">Made by Kenanku</div>
-  <div style="color:white; margin-top:10px;">Loading...</div>
+  <div class="error-title">ERROR</div>
+  <div class="error-message">Problem with loading website,<br>please try again later.</div>
 </div>
-
-<!-- Main content -->
-<div id="content">
-  <h1>!</h1>
-  <p></p>
-</div>
-
-<script>
-  // Simulate loading time
-  window.addEventListener('load', () => {
-    const loader = document.getElementById('loader');
-    loader.classList.add('fadeOut');
-
-    // Show main content after fade out
-    setTimeout(() => {
-      document.getElementById('content').style.display = 'block';
-    }, 500); // Match fade out duration
-  });
-</script>
 
 </body>
 </html>
