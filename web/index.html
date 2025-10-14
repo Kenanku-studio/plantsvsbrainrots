@@ -16,6 +16,8 @@
     align-items: center;
     font-family: Arial, sans-serif;
     color: white;
+    flex-direction: column;
+    position: relative;
   }
 
   .error-container {
@@ -35,6 +37,22 @@
     margin-bottom: 20px;
   }
 
+  .spinner {
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid red; /* Red for error */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px auto;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* RGB animated text at bottom */
   .rgb-text {
     font-size: 1.5rem;
     font-weight: bold;
@@ -43,7 +61,10 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: rainbow 5s linear infinite;
-    margin-bottom: 20px;
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
   }
 
   @keyframes rainbow {
@@ -51,31 +72,17 @@
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
-
-  .spinner {
-    border: 8px solid #f3f3f3; /* Light grey */
-    border-top: 8px solid red; /* Red for error */
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 1s linear infinite;
-    margin: 0 auto;
-  }
-
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
 </style>
 </head>
 <body>
 
 <div class="error-container">
   <div class="spinner"></div>
-  <div class="rgb-text">Made by Kenanku</div>
   <div class="error-title">ERROR</div>
   <div class="error-message">Problem with loading website,<br>please try again later.</div>
 </div>
+
+<div class="rgb-text">Made by Kenanku</div>
 
 </body>
 </html>
