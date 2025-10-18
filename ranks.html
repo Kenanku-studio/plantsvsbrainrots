@@ -14,16 +14,18 @@
     }
     #grid {
       display: grid;
-      gap: 1px;
+      gap: 0;
       margin-top: 20px;
     }
     .cell {
-      font-size: 16px;
+      font-size: 12px;
       cursor: pointer;
       user-select: none;
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 12px;
+      height: 12px;
     }
     .cell:hover {
       outline: 1px solid #333;
@@ -31,7 +33,7 @@
   </style>
 </head>
 <body>
-  <h1>PNG to Glyph Grid</h1>
+  <h1>PNG → Glyph Grid</h1>
   <input type="file" id="fileInput" accept="image/png">
   <canvas id="canvas" style="display:none;"></canvas>
   <div id="grid"></div>
@@ -47,17 +49,27 @@
       if (!file) return;
       const img = new Image();
       img.onload = () => {
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx.drawImage(img, 0, 0);
-        const imageData = ctx.getImageData(0, 0, img.width, img.height).data;
+        // limit to 64x64 for performance
+        const maxSize = 64;
+        let w = img.width;
+        let h = img.height;
+        if (w > maxSize || h > maxSize) {
+          const scale = Math.min(maxSize / w, maxSize / h);
+          w = Math.floor(w * scale);
+          h = Math.floor(h * scale);
+        }
 
-        grid.style.gridTemplateColumns = `repeat(${img.width}, 16px)`;
+        canvas.width = w;
+        canvas.height = h;
+        ctx.drawImage(img, 0, 0, w, h);
+        const imageData = ctx.getImageData(0, 0, w, h).data;
+
+        grid.style.gridTemplateColumns = `repeat(${w}, 12px)`;
         grid.innerHTML = "";
 
-        for (let y = 0; y < img.height; y++) {
-          for (let x = 0; x < img.width; x++) {
-            const i = (y * img.width + x) * 4;
+        for (let y = 0; y < h; y++) {
+          for (let x = 0; x < w; x++) {
+            const i = (y * w + x) * 4;
             const r = imageData[i];
             const g = imageData[i + 1];
             const b = imageData[i + 2];
@@ -66,12 +78,12 @@
             const cell = document.createElement("div");
             cell.className = "cell";
             cell.textContent = ""; // glyph
-            cell.style.width = "16px";
-            cell.style.height = "16px";
             cell.style.color = `rgba(${r},${g},${b},${a / 255})`;
 
             cell.addEventListener("click", () => {
               navigator.clipboard.writeText("");
+              cell.style.outline = "1px solid red"; // feedback
+              setTimeout(() => cell.style.outline = "", 300);
             });
 
             grid.appendChild(cell);
